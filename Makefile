@@ -1,8 +1,9 @@
 CXXFLAGS=-g
 
 main: main.cc unicodeFrameBuffer.o
-unicodeFrameBuffer.o: unicodeFrameBuffer.cc unicodeFrameBuffer.h
+
 %.o: %.cc %.h
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) $< -o $@
 
 .PHONY: clean
 
