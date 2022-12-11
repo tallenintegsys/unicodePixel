@@ -2,14 +2,12 @@
 #include <cstdio>
 
 
-unicodeFrameBuffer::unicodeFrameBuffer(uint8_t x, uint8_t y) {
-       frameBuffer = new uint8_t*[y/2];
-       for (int i = 0; i < y/2; i++)
-               frameBuffer[i] = new uint8_t[x/2];
+unicodeFrameBuffer::unicodeFrameBuffer(uint8_t x, uint8_t y) : _x(x), _y(y) {
+       _frameBuffer = new uint8_t[(_x/2)*(_y/2)];
 }
 
 unicodeFrameBuffer::~unicodeFrameBuffer(void) {
-        delete frameBuffer; //XXX wrong
+        delete _frameBuffer;
 }
 
 void unicodeFrameBuffer::plot(uint8_t x, uint8_t y) {
@@ -22,8 +20,8 @@ void unicodeFrameBuffer::plot(uint8_t x, uint8_t y) {
         uint8_t sx = x%2;
         uint8_t sy = y%2;
 
-        frameBuffer[cx][cy] |= b[sx][sy]; 
+        _frameBuffer[cx+cy*_x] |= b[sx][sy];
 
-        printf("\e[%d;%dH%s", cy+1, cx+1, c[frameBuffer[cx][cy]]);
+        printf("\e[%d;%dH%s", cy+1, cx+1, c[_frameBuffer[cx+cy*_x]]);
         fflush(stdout);
 }
