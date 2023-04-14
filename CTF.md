@@ -83,13 +83,14 @@ Last login: Thu Apr 13 15:02:13 2023 from 99.10.95.250
 
 ## 1. What is the absolute path of the file with the permission set: setguid, user: execute, group: write, world: read
 Okay is there some variant of find that does perms, I cant remember so man. BTW that sounds slow, if we're on spinning rust.   
-Gotta start somewhere so lest go with ```find / -perm /g+s```
+Gotta start somewhere so let's go with ```find / -perm /g+s```
 ```/var/local/r0k4/walter.sobchak```
 obtained via
 ```find / -type f -exec ls -l {} \; | grep -E "^...x.wSr"```
-I know. Hardly eligant and I had to wade through a bunch of "Permission denied"
+I know. Hardly eligant and I had to wade through a bunch of "Permission denied"   
+I went back and looked at this again, the 'correct' answer is ```find / -perm u=x,g=ws,o=r  2> /dev/null```
 
-## An aside my ```cd``` is borked and I don't like it
+## As an aside my ```cd``` is borked and I don't like it
 ```hash -d cd```
 fail
 ```enable cd```
@@ -130,7 +131,7 @@ well
 That's an excerpt. No I was not able to parse the password out of the string and eventually worked up the courage to kill the process (just did a ```killall```), become wilson, and subsequently become root. Is "StrangerInTheAlps1998" a book or a keyboard, I'm gonna go with book since I'm fairly Alps keyboards were long gone by 1998.
 
 ## 4. Which user on the system is allowed to execute the tcpdump command as root but no other command?
-I don't think this is true... recheck later
+I don't think this is true... recheck later... I ```su - ``` to all the users with a home dir, AFAIK none were restricted. Maybe you were trying to get me to say the ```tcpdump``` user but that account is disabled.
 
 ## 5. When the system detects a specific USB device being removed from the system, what command is run?
 /usr/bin/logger 'device was removed'
@@ -153,7 +154,7 @@ e05b033f8f747142b5dcc7d80dd53878
 ```
 script1 ignores the args and sends a single ping to 127.0.0.19   
 script2 takes two args, the count and the host (or IP to ping), since the former is 1 and the latter is 127.0.0.19 it will send a single ping at 1528 on the 3rd DOM   
-script3 pings 0.0.0.1 I'm betting that's not what the author intended
+script3 pings 0.0.0.1 I'm betting that's not what the author intended   
 So every hour, at 14 past the hour, a ping is sent to 127.0.0.19 and once a month, on the third day of the month, they get a bonus ping at 3:15pm.
 
 ## 8. Do whatever you can to harden this system and reduce its attack surface. There are no right or wrong answers here; it's up to you what you consider important.
