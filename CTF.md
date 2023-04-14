@@ -1,10 +1,10 @@
 ﻿# Linux
 ## ssh to 178.128.24.75
-### remember how to handle keys
+remember how to handle keys
 - Remember that you must have created a key pair and stuck the public key in ${HOME}/.ssh/authorizedkeys
 - Look up how to get ssh to use an alternate private key
 - port ends in 69, 2269? idunno so nmap
-### uh, I don't actually know the port
+uh, I don't actually know the port
 ```
 $ nmap 178.128.24.75
 Starting Nmap 7.80 ( https://nmap.org ) at 2023-04-14 11:09 EDT
@@ -28,11 +28,11 @@ still noisy, but faster
 ```
 for i in {654..1}; do nc 178.128.24.75 "${i}69"; echo "${i}"; done
 ```
-won. But let's face it I've made a lot of noise
+this won. But let's face it I've made a lot of noise
 ```
 nmap -sS -p- 178.128.24.75
 ```
-Is supposedly less noisy, just sends SYN and calls it good if SYNACK? not really sure why less noisy
+Is supposedly less noisy, just sends SYN and calls it good if SYN-ACK??? Is it really less noisy, I have my doubts.
 ...and at the time of this writing I'm still waiting for a result
 ### actually logging in
 ```
@@ -107,7 +107,7 @@ That was silly, I coulda dumped in a sqlite DB and done a select
 I also borked around with sort, and join but couldn't remember how to make those chooch.  
 There was a time when the device files did not have to be in the /dev (technically devfs) but I think that time is passed; nevertheless,
 I'll do a find on the whole FS  
-```find . -type c ! -group tty -exec ls -l {} \; 2> /dev/null | wc -l```  
+```find / -type c ! -group tty -exec ls -l {} \; 2> /dev/null | wc -l```  
 okay, well, I gather they still can be outside devfs, I found 91 with this (less silly) method.
 
 ## 3. Send a SIGINT to the running program called interview. Useful information will then appear in a log file.
@@ -186,7 +186,7 @@ sshd      169714             tim    4u  IPv4 821569      0t0  TCP binford:42069-
 ```
 The cool kids use ```lsof```
 
-I haven't used it in a 1000 years but I'm gona give rkhunter a whirl and maybe do a clamscan (stop laughing it's getting better) on the FS.
+I haven't used it in a 1000 years but I'm gona give rkhunter a whirl and maybe do a clamscan (stop laughing it's getting better) on the FS. I eventually gave up on clamscan, not enought ram, and yes, I tried adding a swapfile.
 
 Many people frown upon allowing ssh as root.
 
@@ -196,14 +196,12 @@ One could apply STIGs untill the box is useless but at that point you might as w
 
 # Networking
 I can only aspire to Rick Astley's level of 80' pretentiousness.
-
 ```
 johnwick@jump:~$ ip route
 default via 165.22.0.1 dev eth0 proto static 
 10.10.0.0/16 dev eth0 proto kernel scope link src 10.10.0.13 
 10.136.0.0/16 dev eth1 proto kernel scope link src 10.136.116.217 
 165.22.0.0/20 dev eth0 proto kernel scope link src 165.22.9.123 
-
 
 johnwick@destination:~$ ip route
 default via 167.99.224.1 dev eth0 proto static 
@@ -212,7 +210,7 @@ default via 167.99.224.1 dev eth0 proto static
 167.99.224.0/20 dev eth0 proto kernel scope link src 167.99.236.244 
 ```
 
-Most people think that band is Mexican or perhaps Spanish, but I understand they are French.
+Most people think that band is Mexican or perhaps Spanish, but I understand they are French. Oh, the movie is The Big Lebowski
 
 ```
 johnwick@jump:~$ ssh -p33309 johnwick@167.99.236.244 -L22340:localhost:2340
